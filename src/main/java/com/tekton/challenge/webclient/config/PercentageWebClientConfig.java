@@ -19,17 +19,17 @@ public class PercentageWebClientConfig {
     private String baseUrl;
 
     @Value("${api.percentage.connection-timeout}")
-    private int connectionTimeout;
+    private Duration connectionTimeout;
 
     @Value("${api.percentage.response-timeout}")
-    private int responseTimeout;
+    private Duration responseTimeout;
 
     @Bean
     public WebClient percentageWebClientBase() {
 
         HttpClient httpClient = HttpClient.create()
-                .option(ChannelOption.CONNECT_TIMEOUT_MILLIS, connectionTimeout)
-                .responseTimeout(Duration.ofMillis(responseTimeout));
+                .option(ChannelOption.CONNECT_TIMEOUT_MILLIS, (int) connectionTimeout.toMillis())
+                .responseTimeout(responseTimeout);
 
         return WebClient.builder()
                 .clientConnector(new ReactorClientHttpConnector(httpClient))
