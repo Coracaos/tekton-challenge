@@ -44,6 +44,7 @@ public class RequestLogService {
                     new TypeReference<Map<String, List<String>>>() {}
             ));
             requestLogDto.setResponseCode(requestLog.getResponseCode());
+            requestLogDto.setIsOk(requestLog.getIsOK());
             requestLogDto.setRegistrationDate(requestLog.getRegistrationDate());
             requestLogsDto.add(requestLogDto);
         }
@@ -66,7 +67,7 @@ public class RequestLogService {
         requestLog.setQueryParams(queryParams);
         requestLog.setResponseCode(responseCode);
         requestLog.setRegistrationDate(OffsetDateTime.now());
-        requestLog.setIsError(responseCode > 299);
+        requestLog.setIsOK(responseCode < 300 && responseCode >= 200);
         requestLogRepo.save(requestLog);
     }
 }

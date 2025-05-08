@@ -14,6 +14,7 @@ public class RequestLogDto {
     private String endpoint;
     private Map<String, List<String>> queryParams;
     private Integer responseCode;
+    private Boolean isOk;
 
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX", shape = JsonFormat.Shape.STRING)
     private OffsetDateTime registrationDate;
