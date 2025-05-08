@@ -39,7 +39,7 @@ public class RequestLogService {
         requestHistoryResp.setValues(requestLogsDto);
 
         var paginationDto = new PaginationDto(
-                requestLogPage.getNumberOfElements(),
+                requestLogPage.getTotalElements(),
                 requestLogPage.getTotalPages()
         );
         requestHistoryResp.setPagination(paginationDto);
