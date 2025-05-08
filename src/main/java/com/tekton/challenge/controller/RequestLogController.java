@@ -1,5 +1,6 @@
 package com.tekton.challenge.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.tekton.challenge.service.RequestLogService;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
@@ -23,7 +24,7 @@ public class RequestLogController {
     @GetMapping(value = "/requests")
     public ResponseEntity<?> getRequestHistory(
             @NotNull @Min(1) @RequestParam("page") Integer page,
-            @Min(1) @Max(50) @RequestParam("size") Integer size){
+            @Min(1) @Max(50) @RequestParam("size") Integer size) throws JsonProcessingException {
         return ResponseEntity.ok(requestLogService.getRequestHistory(page, size));
     }
 }

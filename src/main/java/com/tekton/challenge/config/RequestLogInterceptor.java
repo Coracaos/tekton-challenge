@@ -1,34 +1,29 @@
 package com.tekton.challenge.config;
 
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tekton.challenge.model.entity.RequestLog;
 import com.tekton.challenge.repository.RequestLogRepo;
-import jakarta.servlet.*;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
+import org.springframework.web.servlet.HandlerInterceptor;
 
-import java.io.IOException;
 import java.time.OffsetDateTime;
 
-@Component
+@Service
 @RequiredArgsConstructor
-public class RequestLogFilter implements Filter {
+public class RequestLogInterceptor implements HandlerInterceptor {
 
     private final ObjectMapper objectMapper;
     private final RequestLogRepo requestHistoryRepo;
 
     @Override
-    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain)
-            throws IOException, ServletException {
-
-        HttpServletRequest httpRequest = (HttpServletRequest) servletRequest;
-        HttpServletResponse httpResponse = (HttpServletResponse) servletResponse;
-
-        var path = httpRequest.getRequestURI();
-        var queryParams = objectMapper.writeValueAsString(httpRequest.getParameterMap());
-        var responseCode = httpResponse.getStatus();
+    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
+        var path = request.getRequestURI();
+        var queryParams = objectMapper.writeValueAsString(request.getParameterMap());
+        var responseCode = response.getStatus();
 
         var requestHistory = new RequestLog();
         requestHistory.setEndpoint(path);
@@ -36,8 +31,5 @@ public class RequestLogFilter implements Filter {
         requestHistory.setResponseCode(responseCode);
         requestHistory.setRegistrationDate(OffsetDateTime.now());
         requestHistoryRepo.save(requestHistory);
-
-        filterChain.doFilter(servletRequest, servletResponse);
-
     }
 }
