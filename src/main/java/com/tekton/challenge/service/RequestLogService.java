@@ -8,8 +8,6 @@ import com.tekton.challenge.model.dto.RequestLogDto;
 import com.tekton.challenge.model.entity.RequestLog;
 import com.tekton.challenge.model.response.RequestHistoryResp;
 import com.tekton.challenge.repository.RequestLogRepo;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -61,16 +59,14 @@ public class RequestLogService {
     }
 
     @Async
-    public void saveRequestLog(HttpServletRequest request, HttpServletResponse response) throws JsonProcessingException {
-        var path = request.getRequestURI();
-        var queryParams = objectMapper.writeValueAsString(request.getParameterMap());
-        var responseCode = response.getStatus();
-
-        var requestHistory = new RequestLog();
-        requestHistory.setEndpoint(path);
-        requestHistory.setQueryParams(queryParams);
-        requestHistory.setResponseCode(responseCode);
-        requestHistory.setRegistrationDate(OffsetDateTime.now());
-        requestLogRepo.save(requestHistory);
+    public void saveRequestLog(String path, Map<String, String[]> queryParamsMap, Integer responseCode) throws JsonProcessingException {
+        var queryParams = objectMapper.writeValueAsString(queryParamsMap);
+        var requestLog = new RequestLog();
+        requestLog.setEndpoint(path);
+        requestLog.setQueryParams(queryParams);
+        requestLog.setResponseCode(responseCode);
+        requestLog.setRegistrationDate(OffsetDateTime.now());
+        requestLog.setIsError(responseCode > 299);
+        requestLogRepo.save(requestLog);
     }
 }

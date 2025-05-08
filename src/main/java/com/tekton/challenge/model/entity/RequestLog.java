@@ -27,4 +27,7 @@ public class RequestLog {
     @Column(name = "response_code")
     private Integer responseCode;
 
+    @Column(name = "is_error")
+    private Boolean isError;
+
 }
