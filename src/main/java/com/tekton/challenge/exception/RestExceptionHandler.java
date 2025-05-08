@@ -11,10 +11,20 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.servlet.NoHandlerFoundException;
 
 @Log4j2
 @RestControllerAdvice
 public class RestExceptionHandler {
+
+    @ExceptionHandler(NoHandlerFoundException.class)
+    public ResponseEntity<Object> handleNoHandlerFound(NoHandlerFoundException ex) {
+        ApiErrorResp error = new ApiErrorResp();
+        error.setCode(ErrorCode.ENDPOINT_NOT_FOUND);
+        error.setMessage("the requested endpoint does not exist");
+        log.error(ex.getMessage());
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
+    }
 
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public ResponseEntity<ApiErrorResp> handleHttpMessageNotReadable(HttpMessageNotReadableException ex) {
