@@ -65,7 +65,7 @@ public class RestExceptionHandler {
         error.setMessage("one or more fields in the request are invalid");
         error.setSubErrors(ex.getConstraintViolations().stream().map(e ->{
             StringBuilder str = new StringBuilder();
-            str.append(e.getPropertyPath().toString()).append("=").append(e.getInvalidValue())
+            str.append(e.getPropertyPath()).append("=").append(e.getInvalidValue())
                     .append(" : ").append(e.getMessage());
             return str.toString();
         }).toList());

@@ -1,6 +1,9 @@
 package com.tekton.challenge.controller;
 
 import com.tekton.challenge.service.RequestLogService;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -18,7 +21,9 @@ public class RequestLogController {
     private final RequestLogService requestLogService;
 
     @GetMapping(value = "/requests")
-    public ResponseEntity<?> getRequestHistory(@RequestParam("page") int page,  @RequestParam("size") int size){
+    public ResponseEntity<?> getRequestHistory(
+            @NotNull @Min(1) @RequestParam("page") Integer page,
+            @Min(1) @Max(50) @RequestParam("size") Integer size){
         return ResponseEntity.ok(requestLogService.getRequestHistory(page, size));
     }
 }

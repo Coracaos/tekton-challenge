@@ -2,6 +2,10 @@ package com.tekton.challenge.controller;
 
 import com.tekton.challenge.model.response.CalculatedValueResp;
 import com.tekton.challenge.service.CalculateService;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.DecimalMax;
+import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -22,8 +26,8 @@ public class CalculateController {
 
    @GetMapping(value = "/calculate")
    public ResponseEntity<CalculatedValueResp> getCalculatedValue(
-           @RequestParam("num1") BigDecimal num1,
-           @RequestParam("num2") BigDecimal num2
+           @NotNull @DecimalMin(value = "0.0", inclusive = true) @DecimalMax("1000000.00") @RequestParam("num1") BigDecimal num1,
+           @NotNull @DecimalMin(value = "0.0", inclusive = true) @DecimalMax("1000000.00") @RequestParam("num2") BigDecimal num2
    ){
       return ResponseEntity.ok(calculateService.calculateValue(num1, num2));
    }
