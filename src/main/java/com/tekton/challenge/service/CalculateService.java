@@ -2,6 +2,7 @@ package com.tekton.challenge.service;
 
 import com.github.benmanes.caffeine.cache.Cache;
 import com.tekton.challenge.config.CacheConfig;
+import com.tekton.challenge.exception.ExternalServiceException;
 import com.tekton.challenge.model.response.CalculatedValueResp;
 import com.tekton.challenge.webclient.PercentageWebClient;
 import lombok.RequiredArgsConstructor;
@@ -41,7 +42,7 @@ public class CalculateService {
                 percentageCache.put(percentageKey, percentage);
                 return percentage;
             }
-            throw new RuntimeException("Error to get percentage from External API");
+            throw new ExternalServiceException("error to get percentage from external api");
         }
 
         percentageCache.put(percentageKey, percentage);

@@ -17,6 +17,15 @@ import org.springframework.web.servlet.NoHandlerFoundException;
 @RestControllerAdvice
 public class RestExceptionHandler {
 
+    @ExceptionHandler(ExternalServiceException.class)
+    public ResponseEntity<ApiErrorResp> handleExternalServiceException(ExternalServiceException ex) {
+        ApiErrorResp errorResponse = new ApiErrorResp();
+        errorResponse.setCode(ErrorCode.SERVICE_UNAVAILABLE);
+        errorResponse.setMessage("an issue occurred, please try again later");
+        log.error(ex.getMessage());
+        return ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE).body(errorResponse);
+    }
+
     @ExceptionHandler(NoHandlerFoundException.class)
     public ResponseEntity<Object> handleNoHandlerFound(NoHandlerFoundException ex) {
         ApiErrorResp error = new ApiErrorResp();
