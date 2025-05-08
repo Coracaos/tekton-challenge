@@ -7,8 +7,8 @@ import java.time.OffsetDateTime;
 
 @Data
 @Entity
-@Table(name = "request_history")
-public class RequestHistory {
+@Table(name = "request_log")
+public class RequestLog {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

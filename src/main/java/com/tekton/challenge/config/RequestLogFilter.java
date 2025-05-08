@@ -1,8 +1,8 @@
 package com.tekton.challenge.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.tekton.challenge.model.entity.RequestHistory;
-import com.tekton.challenge.repository.RequestHistoryRepo;
+import com.tekton.challenge.model.entity.RequestLog;
+import com.tekton.challenge.repository.RequestLogRepo;
 import jakarta.servlet.*;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -14,10 +14,10 @@ import java.time.OffsetDateTime;
 
 @Component
 @RequiredArgsConstructor
-public class HistoryRequestFilter implements Filter {
+public class RequestLogFilter implements Filter {
 
     private final ObjectMapper objectMapper;
-    private final RequestHistoryRepo requestHistoryRepo;
+    private final RequestLogRepo requestHistoryRepo;
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain)
@@ -30,7 +30,7 @@ public class HistoryRequestFilter implements Filter {
         var queryParams = objectMapper.writeValueAsString(httpRequest.getParameterMap());
         var responseCode = httpResponse.getStatus();
 
-        var requestHistory = new RequestHistory();
+        var requestHistory = new RequestLog();
         requestHistory.setEndpoint(path);
         requestHistory.setQueryParams(queryParams);
         requestHistory.setResponseCode(responseCode);

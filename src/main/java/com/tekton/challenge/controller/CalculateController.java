@@ -1,10 +1,8 @@
 package com.tekton.challenge.controller;
 
 import com.tekton.challenge.model.response.CalculatedValueResp;
-import com.tekton.challenge.repository.RequestHistoryRepo;
 import com.tekton.challenge.service.CalculateService;
 import lombok.RequiredArgsConstructor;
-import org.apache.coyote.Response;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
