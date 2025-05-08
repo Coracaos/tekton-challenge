@@ -10,7 +10,7 @@ API REST desarrollada en **Spring Boot (Java 21)** que permite calcular la suma 
 
 ### 1. `GET /api/calculate`
 
-Suma `num1` + `num2` y aplica un porcentaje dinámico.
+Suma `num1` + `num2` y adiciona un porcentaje obtenido desde un servicio externo (mock).
 
 | Parámetro | Tipo       | Obligatorio | Descripción                                                                 |
 |-----------|------------|-------------|-----------------------------------------------------------------------------|
