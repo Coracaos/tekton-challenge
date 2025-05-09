@@ -49,6 +49,12 @@ Accede a la documentación Swagger una vez el servicio esté corriendo:
 
 http://localhost:8080/swagger-ui.html
 
+## Colección Postman 
+
+Puedes obtener la siguiente colección de Postman para probar los endpotins de la API.
+
+[Obtener colección de Postman](https://github.com/coracaos/tekton-challenge/blob/main/postman/Tekton_Challenge.postman_collection.json)
+
 ## Requisitos
 
 - Docker
@@ -56,5 +62,12 @@ http://localhost:8080/swagger-ui.html
 
 ## Cómo ejecutar el proyecto
 
+1) Obtener repositorio del proyecto
+```bash
+git clone https://github.com/Coracaos/tekton-challenge.git
+cd tekton-challenge
+```
+2) Ejecutar el proyecto con docker compose
 ```bash
 docker compose up
+```

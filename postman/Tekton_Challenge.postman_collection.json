@@ -1,0 +1,218 @@
+{
+	"info": {
+		"_postman_id": "343963ca-6567-4ed6-819a-166bc3c056fd",
+		"name": "Tekton Challenge",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "8666373"
+	},
+	"item": [
+		{
+			"name": "Calculate",
+			"item": [
+				{
+					"name": "calculate",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/calculate?num1=10.11&num2=22.31",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"calculate"
+							],
+							"query": [
+								{
+									"key": "num1",
+									"value": "10.11"
+								},
+								{
+									"key": "num2",
+									"value": "22.31"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "validate decimal places",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/calculate?num1=10.112&num2=22.312",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"calculate"
+							],
+							"query": [
+								{
+									"key": "num1",
+									"value": "10.112"
+								},
+								{
+									"key": "num2",
+									"value": "22.312"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "validate range allowed",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/calculate?num1=-10.11&num2=1000001.31",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"calculate"
+							],
+							"query": [
+								{
+									"key": "num1",
+									"value": "-10.11"
+								},
+								{
+									"key": "num2",
+									"value": "1000001.31"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "validate missing parameter",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/calculate",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"calculate"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Mock Percentage",
+			"item": [
+				{
+					"name": "percentage",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/mock/percentage",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"mock",
+								"percentage"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Request History",
+			"item": [
+				{
+					"name": "request history",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/metadata/requests?page=1&size=10",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"metadata",
+								"requests"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "size",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "validate params",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/metadata/requests?page=-1&size=60",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"metadata",
+								"requests"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "-1"
+								},
+								{
+									"key": "size",
+									"value": "60"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
