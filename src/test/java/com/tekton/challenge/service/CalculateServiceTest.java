@@ -5,7 +5,12 @@ import com.tekton.challenge.config.CacheConfig;
 import com.tekton.challenge.exception.ExternalServiceException;
 import com.tekton.challenge.model.response.CalculatedValueResp;
 import com.tekton.challenge.webclient.PercentageWebClient;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -17,22 +22,24 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.when;
 
-@SpringBootTest(classes = {CalculateService.class, CacheConfig.class})
-class CalculateServiceSpringTest {
+@ExtendWith(MockitoExtension.class)
+class CalculateServiceTest {
 
-    @MockBean
+    @Mock
     private PercentageWebClient percentageWebClient;
 
-    @MockBean
-    @Qualifier("percentageCache")
+    @Mock
     private Cache<String, BigDecimal> percentageCache;
 
-    @MockBean
-    @Qualifier("percentageBackupCache")
+    @Mock
     private Cache<String, BigDecimal> percentageBackupCache;
 
-    @Autowired
     private CalculateService calculateService;
+
+    @BeforeEach
+    void setup(){
+        calculateService = new CalculateService(percentageWebClient, percentageCache, percentageBackupCache);
+    }
 
     private static final String PERCENTAGE_KEY = "percentage";
 

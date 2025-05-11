@@ -16,22 +16,13 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 
 @Service
+@RequiredArgsConstructor
 public class CalculateService {
 
     private final PercentageWebClient percentageWebClient;
     private final Cache<String, BigDecimal> percentageCache;
     private final Cache<String, BigDecimal> percentageBackupCache;
 
-    @Autowired
-    public CalculateService(
-            PercentageWebClient percentageWebClient,
-            @Qualifier("percentageCache") Cache<String, BigDecimal> percentageCache,
-            @Qualifier("percentageBackupCache") Cache<String, BigDecimal> percentageBackupCache
-    ) {
-        this.percentageWebClient = percentageWebClient;
-        this.percentageCache = percentageCache;
-        this.percentageBackupCache = percentageBackupCache;
-    }
 
     public CalculatedValueResp calculateValue(BigDecimal num1, BigDecimal num2) {
         var percentage = getPercentage();
