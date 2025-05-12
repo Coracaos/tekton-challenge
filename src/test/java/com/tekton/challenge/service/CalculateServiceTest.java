@@ -1,25 +1,20 @@
 package com.tekton.challenge.service;
 
 import com.github.benmanes.caffeine.cache.Cache;
-import com.tekton.challenge.config.CacheConfig;
 import com.tekton.challenge.exception.ExternalServiceException;
 import com.tekton.challenge.model.response.CalculatedValueResp;
 import com.tekton.challenge.webclient.PercentageWebClient;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 
 import java.math.BigDecimal;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -68,6 +63,7 @@ class CalculateServiceTest {
         CalculatedValueResp result = calculateService.calculateValue(num1, num2);
 
         assertEquals(new BigDecimal("150.00"), result.value());
+        verify(percentageCache).put("percentage", percentage);
     }
 
     @Test
@@ -83,6 +79,7 @@ class CalculateServiceTest {
         CalculatedValueResp result = calculateService.calculateValue(num1, num2);
 
         assertEquals(new BigDecimal("33.00"), result.value());
+        verify(percentageCache).put("percentage", backupPercentage);
     }
 
     @Test
