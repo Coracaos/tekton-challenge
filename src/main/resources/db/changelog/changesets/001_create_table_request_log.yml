@@ -1,0 +1,44 @@
+databaseChangeLog:
+  - changeSet:
+      id: 001_create_table_request_log
+      author: manuel cardenas
+      changes:
+        - createTable:
+            tableName: request_log
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: endpoint
+                  type: varchar(250)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: query_params
+                  type: varchar(150)
+              - column:
+                  name: response_code
+                  type: int
+                  constraints:
+                    nullable: false
+              - column:
+                  name: is_ok
+                  type: boolean
+                  constraints:
+                    nullable: false
+              - column:
+                  name: registration_date
+                  type: timestamp
+                  constraints:
+                    nullable: false
+        - createIndex:
+            indexName: idx_request_log_registration_date
+            tableName: request_log
+            columns:
+              - column:
+                  name: registration_date
+
